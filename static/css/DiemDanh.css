@@ -1,0 +1,21 @@
+body{
+	
+}
+form {
+	width: 400px;
+	height: 400px;
+	transform: translate(-50%,-50%);
+	position: absolute;
+	left: 50%;
+	top:50%;
+	padding-top: 30px;
+	padding-left: 30px;
+	padding-right: 30px;
+	border-radius: 15px ;
+	border: 1px solid red;
+}
+label {
+	font-size: 15px;
+	color: black;
+
+}

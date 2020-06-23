@@ -1,0 +1,17 @@
+body {
+	background-color: white;
+
+}
+.row-container{
+	border : 1px solid red;
+	border-radius: 20px;
+	margin-top: 20vh;
+	width: 400px;
+	height: 400px;
+    padding-top: 5%;
+    background-color: white;
+
+}
+a {
+	color: white;
+}
