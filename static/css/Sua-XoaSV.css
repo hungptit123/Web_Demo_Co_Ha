@@ -1,0 +1,11 @@
+body{
+	width: 800px;
+	height: 800px;
+}
+.container-fluid
+{   margin-top: 5vh;
+	margin-left: 30%;
+}
+button {
+	width: 200px;
+}

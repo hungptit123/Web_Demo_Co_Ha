@@ -53,29 +53,18 @@
 			<input type="text" name="password" class="form-control" placeholder="password" id="password">	
 		</div>
 		<input type="submit" name="btn-submit" class="btn btn-warning btn-block my-4" value="Đăng nhập">
+		<input type="text" name="session_id" class="" value="{{session_id}}" style="visibility: hidden;">
 	</div>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-    <!-- <script>
-      var x = Math.floor(Math.random() * 100000);
-      var socket = io.connect( 'http://' + document.domain + ':' + location.port )
-      // // broadcast a message
-      // socket.on( 'connect', function() {
-      //   var form = $( 'form' ).on( 'submit', function( e ) {
-      //     e.preventDefault()
-      //     let user_name = document.getElementById("username").value;
-      //     let pass_word = document.getElementById("username").value;
-      //     socket.emit( 'process_login', {
-      //       username : user_name,
-      //       password : pass_word
-      //     } )
-      //     // // empty the input field
-      //     // $( 'input.message' ).val( '' ).focus()
-      //   } )
-      // } )
+    <script>
+    	var message = '{{ data }}';
+    	if (message.length > 0) {
+    		alert(message);
+    	}
 
-    </script> -->
+    </script>
 </form>
 </body>
 </html>
