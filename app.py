@@ -28,6 +28,7 @@ def home_themsv():
 		data = {}
 		for name in list_text:
 			data[name] = request.form[name]
+		class_process.add_student(data)
 		return redirect(url_for('home_admin'))
 	return render_template('ThemSV.html')
 
@@ -40,7 +41,7 @@ def home_themgv():
 		data = {}
 		for name in list_text:
 			data[name] = request.form[name]
-		# class_process.add_student()
+		class_process.add_teacher(data)
 		return redirect(url_for('home_admin'))
 	return render_template('ThemGV.html')
 
@@ -70,8 +71,11 @@ def home():
 @app.route( '/home/giaovien/diemdanh', methods = ['GET', 'POST'])
 def home_giaovien_diemdanh():
 	if request.method == 'POST':
-		#doing st;
-		a = 1
+		subject = request.form['subject']
+		room = request.form['room']
+		if class_process.check_room_existence(subject, room):
+			print('room found!')
+		else: print('room not existed')
 	return render_template('DiemDanh.html')
 
 @app.route( '/home/giaovien', methods = ['GET', 'POST'])

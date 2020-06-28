@@ -1,0 +1,507 @@
+USE [master]
+GO
+/****** Object:  Database [PTIT_PTHTTTQL_FaceAttendance]    Script Date: 6/23/2020 10:51:04 PM ******/
+CREATE DATABASE [PTIT_PTHTTTQL_FaceAttendance]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'PTIT_PTHTTTQL_FaceAttendance', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER02\MSSQL\DATA\PTIT_PTHTTTQL_FaceAttendance.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'PTIT_PTHTTTQL_FaceAttendance_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER02\MSSQL\DATA\PTIT_PTHTTTQL_FaceAttendance_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [PTIT_PTHTTTQL_FaceAttendance].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET RECOVERY FULL 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET  MULTI_USER 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'PTIT_PTHTTTQL_FaceAttendance', N'ON'
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET QUERY_STORE = OFF
+GO
+USE [PTIT_PTHTTTQL_FaceAttendance]
+GO
+/****** Object:  Table [dbo].[Attendance]    Script Date: 6/23/2020 10:51:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Attendance](
+	[AttendanceID] [uniqueidentifier] NOT NULL,
+	[SectionID] [uniqueidentifier] NULL,
+	[RemarkCode] [uniqueidentifier] NULL,
+	[StartedTime] [datetime] NULL,
+	[EndedTime] [datetime] NULL,
+ CONSTRAINT [PK_Attendance] PRIMARY KEY CLUSTERED 
+(
+	[AttendanceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ClassRoom]    Script Date: 6/23/2020 10:51:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ClassRoom](
+	[RoomID] [uniqueidentifier] NOT NULL,
+	[RoomName] [nvarchar](10) NULL,
+	[Description] [nvarchar](max) NULL,
+	[RoomCode] [nvarchar](20) NULL,
+ CONSTRAINT [PK_ClassRoom] PRIMARY KEY CLUSTERED 
+(
+	[RoomID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ClassSection]    Script Date: 6/23/2020 10:51:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ClassSection](
+	[SectionID] [uniqueidentifier] NOT NULL,
+	[SubjectID] [uniqueidentifier] NULL,
+	[RoomID] [uniqueidentifier] NULL,
+	[WeekDay] [datetime] NULL,
+	[StartSlot] [int] NULL,
+	[TeacherID] [uniqueidentifier] NULL,
+	[NumberOfSlots] [int] NULL,
+	[NumberOfStudents] [int] NULL,
+	[AttendanceStatus] [bit] NULL,
+ CONSTRAINT [PK_ClassSection] PRIMARY KEY CLUSTERED 
+(
+	[SectionID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ClassSectionStudent]    Script Date: 6/23/2020 10:51:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ClassSectionStudent](
+	[SectionStudent] [uniqueidentifier] NOT NULL,
+	[SectionID] [uniqueidentifier] NULL,
+	[StudentID] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_ClassSectionStudent] PRIMARY KEY CLUSTERED 
+(
+	[SectionStudent] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Grade]    Script Date: 6/23/2020 10:51:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Grade](
+	[GradeID] [nvarchar](50) NOT NULL,
+	[GradeName] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Grade] PRIMARY KEY CLUSTERED 
+(
+	[GradeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Member]    Script Date: 6/23/2020 10:51:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Member](
+	[MemberID] [uniqueidentifier] NOT NULL,
+	[UserName] [nvarchar](max) NULL,
+	[Password] [nvarchar](max) NULL,
+	[PersonID] [uniqueidentifier] NULL,
+	[RoleID] [int] NULL,
+ CONSTRAINT [PK_Member] PRIMARY KEY CLUSTERED 
+(
+	[MemberID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[People]    Script Date: 6/23/2020 10:51:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[People](
+	[PersonID] [uniqueidentifier] NOT NULL,
+	[PersonName] [nvarchar](50) NULL,
+	[DoB] [datetime] NULL,
+	[Gender] [int] NULL,
+	[Email] [nvarchar](255) NULL,
+	[ContactMobile] [nvarchar](10) NULL,
+	[Address] [nvarchar](max) NULL,
+ CONSTRAINT [PK_People] PRIMARY KEY CLUSTERED 
+(
+	[PersonID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Remark]    Script Date: 6/23/2020 10:51:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Remark](
+	[RemarkID] [uniqueidentifier] NOT NULL,
+	[RemarkCode] [uniqueidentifier] NULL,
+	[IsAttendanced] [bit] NULL,
+	[StudentID] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_Remark] PRIMARY KEY CLUSTERED 
+(
+	[RemarkID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Role]    Script Date: 6/23/2020 10:51:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Role](
+	[RoleID] [int] NOT NULL,
+	[RoleName] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Role] PRIMARY KEY CLUSTERED 
+(
+	[RoleID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Student]    Script Date: 6/23/2020 10:51:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Student](
+	[StudentID] [uniqueidentifier] NOT NULL,
+	[PersonID] [uniqueidentifier] NULL,
+	[GradeID] [nvarchar](50) NULL,
+	[ImageID] [uniqueidentifier] NULL,
+	[StudentCode] [nvarchar](20) NULL,
+ CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED 
+(
+	[StudentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Subject]    Script Date: 6/23/2020 10:51:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Subject](
+	[GradeID] [nvarchar](50) NULL,
+	[SubjectID] [uniqueidentifier] NOT NULL,
+	[SubjectName] [nvarchar](50) NULL,
+	[Credits] [int] NULL,
+	[SubjectCode] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Subject] PRIMARY KEY CLUSTERED 
+(
+	[SubjectID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Teacher]    Script Date: 6/23/2020 10:51:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Teacher](
+	[TeacherID] [uniqueidentifier] NOT NULL,
+	[PersonID] [uniqueidentifier] NULL,
+	[Specialize] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Teacher] PRIMARY KEY CLUSTERED 
+(
+	[TeacherID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+INSERT [dbo].[Attendance] ([AttendanceID], [SectionID], [RemarkCode], [StartedTime], [EndedTime]) VALUES (N'9dc424ff-e498-4203-9df0-a0b0e2423771', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'3949ca70-0b79-44aa-8e29-a8dfdb769ce8', CAST(N'2020-06-23T07:05:09.000' AS DateTime), CAST(N'2020-06-23T07:10:09.000' AS DateTime))
+INSERT [dbo].[Attendance] ([AttendanceID], [SectionID], [RemarkCode], [StartedTime], [EndedTime]) VALUES (N'7cdd72b3-96e6-4cf4-9bbd-f401c76ecbbd', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'1d16d69d-3723-4ab4-a764-60885109fa84', CAST(N'2020-06-16T07:10:09.000' AS DateTime), CAST(N'2020-06-16T07:15:09.000' AS DateTime))
+GO
+INSERT [dbo].[ClassRoom] ([RoomID], [RoomName], [Description], [RoomCode]) VALUES (N'63ad561f-f08e-4de3-8d0d-c853589fbdb7', N'', N'ABC', N'502A2')
+GO
+INSERT [dbo].[ClassSection] ([SectionID], [SubjectID], [RoomID], [WeekDay], [StartSlot], [TeacherID], [NumberOfSlots], [NumberOfStudents], [AttendanceStatus]) VALUES (N'363d856b-d71f-42c5-8750-5f26baea1f27', N'bf2b0266-c0b6-4b9b-85e1-cf803f330e5e', N'63ad561f-f08e-4de3-8d0d-c853589fbdb7', CAST(N'1900-01-22T00:00:00.000' AS DateTime), 1, N'7d756fcd-d010-48e6-89cc-ed0a00674662', 2, 60, 1)
+INSERT [dbo].[ClassSection] ([SectionID], [SubjectID], [RoomID], [WeekDay], [StartSlot], [TeacherID], [NumberOfSlots], [NumberOfStudents], [AttendanceStatus]) VALUES (N'cf45fe10-5679-4b8a-b236-f43edba5bc50', N'bf2b0266-c0b6-4b9b-85e1-cf803f330e5e', N'63ad561f-f08e-4de3-8d0d-c853589fbdb7', CAST(N'2020-06-20T00:00:00.000' AS DateTime), 5, N'7d756fcd-d010-48e6-89cc-ed0a00674662', 4, 60, 0)
+INSERT [dbo].[ClassSection] ([SectionID], [SubjectID], [RoomID], [WeekDay], [StartSlot], [TeacherID], [NumberOfSlots], [NumberOfStudents], [AttendanceStatus]) VALUES (N'ebdf7e01-e328-47d0-b8b5-f8b9e6f31d33', N'6da60ba0-4212-4b6a-b792-854b4dc866a1', N'63ad561f-f08e-4de3-8d0d-c853589fbdb7', CAST(N'2020-06-05T00:00:00.000' AS DateTime), 1, N'fd26187c-8869-40c0-ac0b-22f7418e4637', 2, 45, 0)
+GO
+INSERT [dbo].[ClassSectionStudent] ([SectionStudent], [SectionID], [StudentID]) VALUES (N'412af815-9f86-4909-87a1-08eba861065e', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'97d67f3a-3286-41e5-b9a0-a86080919528')
+INSERT [dbo].[ClassSectionStudent] ([SectionStudent], [SectionID], [StudentID]) VALUES (N'0e73d00d-b114-4b45-83c6-0bb44c4646e6', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'5677cb6f-e67e-4a9f-bb87-f7dc4e4d57c1')
+INSERT [dbo].[ClassSectionStudent] ([SectionStudent], [SectionID], [StudentID]) VALUES (N'a31dc8c6-32b0-48a1-93cd-180e37e6fec8', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'35a79c11-bb9a-4a30-a308-bcd40b65d64c')
+INSERT [dbo].[ClassSectionStudent] ([SectionStudent], [SectionID], [StudentID]) VALUES (N'4ebea162-003c-490f-8749-18c921cd16ec', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'9ed18c1f-0ecd-4421-9444-a4b5919b8e99')
+INSERT [dbo].[ClassSectionStudent] ([SectionStudent], [SectionID], [StudentID]) VALUES (N'06898aa9-56ad-4114-9d01-6d55c9aef167', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'd4ac733a-db9e-4fe1-ac36-c8a8ab00f861')
+INSERT [dbo].[ClassSectionStudent] ([SectionStudent], [SectionID], [StudentID]) VALUES (N'8c0080c1-82f2-4a39-b7eb-6dc298ff2959', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'f3c99d2f-2b03-4fb0-93df-7c6b19ac29e2')
+INSERT [dbo].[ClassSectionStudent] ([SectionStudent], [SectionID], [StudentID]) VALUES (N'ac3dc636-77ff-44a4-9b38-9755fb12cf79', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'752308a9-2daf-470a-8fc7-a3980fdaec41')
+INSERT [dbo].[ClassSectionStudent] ([SectionStudent], [SectionID], [StudentID]) VALUES (N'0e0eab09-c985-4e7c-8f8f-cfc6752e86ab', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'75a3b229-bb5d-4640-ba4b-63b22e00ba32')
+INSERT [dbo].[ClassSectionStudent] ([SectionStudent], [SectionID], [StudentID]) VALUES (N'b9864d71-5965-4fe7-a48a-efa52cddfb8b', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'922f897c-3192-403c-b869-e637ddd98a3b')
+INSERT [dbo].[ClassSectionStudent] ([SectionStudent], [SectionID], [StudentID]) VALUES (N'88706e78-bf9a-4e54-9ecf-fcc7402f0572', N'363d856b-d71f-42c5-8750-5f26baea1f27', N'ced14986-6ab7-4f20-a3ba-8115675c46f4')
+GO
+INSERT [dbo].[Grade] ([GradeID], [GradeName]) VALUES (N'D16', N'D16')
+GO
+INSERT [dbo].[Member] ([MemberID], [UserName], [Password], [PersonID], [RoleID]) VALUES (N'4e413edf-9d27-4e60-b67e-769e1a040d37', N'phuonghltn123#', N'phuonghltn123#', N'b99d50c4-b7d2-4875-9f37-fb801075e0b5', 1)
+INSERT [dbo].[Member] ([MemberID], [UserName], [Password], [PersonID], [RoleID]) VALUES (N'ba5b4a90-6962-49c1-89b1-e41433422327', N'phuonghltn123', N'phuonghltn123', N'94d94fb8-a762-464b-b1a8-6e2143d24994', 0)
+GO
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'a1cf2e96-9da8-4fac-9e54-0c1b4012623c', N'Nguy?n Hà Phuong', CAST(N'1998-06-12T00:00:00.000' AS DateTime), 1, N'nguyenhaphuongkx@gmail.com', N'0904168712', N'HaNoi')
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'def2ba71-8e42-47dc-b9e6-16f79a556477', N'Phạm Thị Hoa', CAST(N'2020-06-01T00:00:00.000' AS DateTime), 0, N'pthihoa@gmail.com', N'0936216261', N'Thái Bình')
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'0d1d908b-88e4-48e4-b26d-33764da64519', N'Mai Văn Hải', CAST(N'2020-06-04T00:00:00.000' AS DateTime), 0, N'mvhai@gmail.com', N'0987635151', N'Quảng Ninh')
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'127d2b29-f5db-41c5-9681-458b146ea670', N'Lại Thị Thanh', CAST(N'2020-06-03T00:00:00.000' AS DateTime), 0, N'thanhlt@gmail.com', N'0736252626', N'Hải Phòng')
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'af11dc45-167c-42be-92bf-5a31782e6d60', N'Lê Duy Bách', CAST(N'2020-06-10T00:00:00.000' AS DateTime), 0, N'duybachle@gmail.com', N'0382716462', N'Hà Nội')
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'7417ebc3-7763-40cd-91c2-64bc949fc22e', N'Nguyễn Quang Hải', CAST(N'2020-06-12T00:00:00.000' AS DateTime), 0, N'nqhai@gmail.com', N'3435435', NULL)
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'94d94fb8-a762-464b-b1a8-6e2143d24994', N'Nguyễn Hà Phương', CAST(N'1998-06-12T00:00:00.000' AS DateTime), 1, N'nguyenhaphuongkx@gmail.com', N'0904168712', N'HaNoi')
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'f6e942f0-04bf-49dd-8527-a423b1ea39bf', N'Lưu Văn Hải', CAST(N'2020-06-12T00:00:00.000' AS DateTime), 0, N'hailuuvan@gmail.com', N'0987326163', N'Thái Nguyên')
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'b54e6426-cece-4a78-8a3a-a822b4816de0', N'Trần Thị Thanh Thu', CAST(N'2020-06-26T00:00:00.000' AS DateTime), 0, N'tttt@gmail.com', N'343543545', NULL)
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'ddfe3291-7119-4f4c-a777-b4a16282738e', N'Phạm Thu Thủy', CAST(N'2020-06-09T00:00:00.000' AS DateTime), 0, N'pthuthuy@gmail.com', N'0836525184', N'Nghệ An')
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'e586de35-0740-4b18-b2e5-c4b51e4b5ff9', N'Nguyễn Đình Huy', CAST(N'2020-06-25T00:00:00.000' AS DateTime), 0, N'ndhuy@gmail.com', N'0937213125', NULL)
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'7af68a1a-f60c-4cfd-b32a-d0470038b922', N'Tạ Khắc Ngọc', CAST(N'1978-06-12T00:00:00.000' AS DateTime), 1, N'tkngoc@gmail.com', N'0912364736', N'B?c Giang')
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'b99d50c4-b7d2-4875-9f37-fb801075e0b5', N'Nguyễn Thị Phương', CAST(N'1998-06-12T00:00:00.000' AS DateTime), 1, N'nguyenhaphuongkxtb@gmail.com', N'0384299499', N'HaNoi')
+INSERT [dbo].[People] ([PersonID], [PersonName], [DoB], [Gender], [Email], [ContactMobile], [Address]) VALUES (N'fce4bfa3-19ea-41e0-a5eb-ff467971c55b', N'a', CAST(N'2020-06-18T00:00:00.000' AS DateTime), 0, N'nguyenhaphuongkx@gmail.com', N'3435435', NULL)
+GO
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'17f5da41-2e57-4f4d-9e1f-0299766b3a54', N'1d16d69d-3723-4ab4-a764-60885109fa84', 0, N'922f897c-3192-403c-b869-e637ddd98a3b')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'7578a4ce-fc7a-4bca-95af-06e8f267f112', N'3949ca70-0b79-44aa-8e29-a8dfdb769ce8', 1, N'35a79c11-bb9a-4a30-a308-bcd40b65d64c')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'56fb8c85-dd07-4c6f-84db-072445b62800', N'1d16d69d-3723-4ab4-a764-60885109fa84', 0, N'752308a9-2daf-470a-8fc7-a3980fdaec41')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'b8347e0e-69ad-410f-920e-2384f092db8b', N'1d16d69d-3723-4ab4-a764-60885109fa84', 1, N'ced14986-6ab7-4f20-a3ba-8115675c46f4')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'5ff069c6-db61-4669-ae65-31c5572fac79', N'1d16d69d-3723-4ab4-a764-60885109fa84', 1, N'75a3b229-bb5d-4640-ba4b-63b22e00ba32')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'4fe3e1e0-afea-4a9b-adfd-3ef628970300', N'3949ca70-0b79-44aa-8e29-a8dfdb769ce8', 0, N'ced14986-6ab7-4f20-a3ba-8115675c46f4')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'acea7200-6fc8-49e9-aa5e-54b813c97c7a', N'1d16d69d-3723-4ab4-a764-60885109fa84', 1, N'9ed18c1f-0ecd-4421-9444-a4b5919b8e99')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'9a5d3b0e-5e97-4ce9-9acc-63c5670455b0', N'1d16d69d-3723-4ab4-a764-60885109fa84', 1, N'f3c99d2f-2b03-4fb0-93df-7c6b19ac29e2')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'dd40d7e3-a07d-40de-b46f-6c61e30a8d65', N'3949ca70-0b79-44aa-8e29-a8dfdb769ce8', 0, N'9ed18c1f-0ecd-4421-9444-a4b5919b8e99')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'e9805891-e2c8-45c5-b414-7fe68641425b', N'3949ca70-0b79-44aa-8e29-a8dfdb769ce8', 0, N'5677cb6f-e67e-4a9f-bb87-f7dc4e4d57c1')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'ed03bd2f-015d-4d22-b976-842993813525', N'3949ca70-0b79-44aa-8e29-a8dfdb769ce8', 1, N'752308a9-2daf-470a-8fc7-a3980fdaec41')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'784dca29-3a7f-499d-b118-84feca10273f', N'3949ca70-0b79-44aa-8e29-a8dfdb769ce8', 1, N'75a3b229-bb5d-4640-ba4b-63b22e00ba32')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'9db38eee-83fb-4a3b-8fc4-89490768bae4', N'1d16d69d-3723-4ab4-a764-60885109fa84', 1, N'5677cb6f-e67e-4a9f-bb87-f7dc4e4d57c1')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'f36298d9-d441-4449-9db1-997a7fd1dd94', N'1d16d69d-3723-4ab4-a764-60885109fa84', 0, N'97d67f3a-3286-41e5-b9a0-a86080919528')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'c3e82a15-ca58-407f-b2ad-a9170865ba15', N'1d16d69d-3723-4ab4-a764-60885109fa84', 1, N'd4ac733a-db9e-4fe1-ac36-c8a8ab00f861')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'c8589313-4adb-4c4d-b223-ae0d2968b7e3', N'3949ca70-0b79-44aa-8e29-a8dfdb769ce8', 1, N'd4ac733a-db9e-4fe1-ac36-c8a8ab00f861')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'7e1bd5d9-0565-46a0-82af-c4dbaf030b85', N'3949ca70-0b79-44aa-8e29-a8dfdb769ce8', 1, N'922f897c-3192-403c-b869-e637ddd98a3b')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'14d80b13-878f-444f-8860-c6738d9a8929', N'1d16d69d-3723-4ab4-a764-60885109fa84', 0, N'35a79c11-bb9a-4a30-a308-bcd40b65d64c')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'5271691b-c958-4273-858a-c88fa910448e', N'3949ca70-0b79-44aa-8e29-a8dfdb769ce8', 1, N'f3c99d2f-2b03-4fb0-93df-7c6b19ac29e2')
+INSERT [dbo].[Remark] ([RemarkID], [RemarkCode], [IsAttendanced], [StudentID]) VALUES (N'c1f0c356-081b-4f27-8426-f1fa0a9a42f7', N'3949ca70-0b79-44aa-8e29-a8dfdb769ce8', 1, N'97d67f3a-3286-41e5-b9a0-a86080919528')
+GO
+INSERT [dbo].[Role] ([RoleID], [RoleName]) VALUES (0, N'Teacher')
+INSERT [dbo].[Role] ([RoleID], [RoleName]) VALUES (1, N'Admin')
+GO
+INSERT [dbo].[Student] ([StudentID], [PersonID], [GradeID], [ImageID], [StudentCode]) VALUES (N'75a3b229-bb5d-4640-ba4b-63b22e00ba32', N'b54e6426-cece-4a78-8a3a-a822b4816de0', N'D16', N'00000000-0000-0000-0000-000000000000', N'B16DCCN271')
+INSERT [dbo].[Student] ([StudentID], [PersonID], [GradeID], [ImageID], [StudentCode]) VALUES (N'f3c99d2f-2b03-4fb0-93df-7c6b19ac29e2', N'af11dc45-167c-42be-92bf-5a31782e6d60', N'D16', N'00000000-0000-0000-0000-000000000000', N'B16DCCN032')
+INSERT [dbo].[Student] ([StudentID], [PersonID], [GradeID], [ImageID], [StudentCode]) VALUES (N'ced14986-6ab7-4f20-a3ba-8115675c46f4', N'0d1d908b-88e4-48e4-b26d-33764da64519', N'D16', N'00000000-0000-0000-0000-000000000000', N'B16DCCN083')
+INSERT [dbo].[Student] ([StudentID], [PersonID], [GradeID], [ImageID], [StudentCode]) VALUES (N'752308a9-2daf-470a-8fc7-a3980fdaec41', N'127d2b29-f5db-41c5-9681-458b146ea670', N'D16', N'00000000-0000-0000-0000-000000000000', N'B16DCCN394')
+INSERT [dbo].[Student] ([StudentID], [PersonID], [GradeID], [ImageID], [StudentCode]) VALUES (N'9ed18c1f-0ecd-4421-9444-a4b5919b8e99', N'fce4bfa3-19ea-41e0-a5eb-ff467971c55b', N'D16', N'00000000-0000-0000-0000-000000000000', N'c')
+INSERT [dbo].[Student] ([StudentID], [PersonID], [GradeID], [ImageID], [StudentCode]) VALUES (N'97d67f3a-3286-41e5-b9a0-a86080919528', N'ddfe3291-7119-4f4c-a777-b4a16282738e', N'D16', N'00000000-0000-0000-0000-000000000000', N'B16DCAT243')
+INSERT [dbo].[Student] ([StudentID], [PersonID], [GradeID], [ImageID], [StudentCode]) VALUES (N'35a79c11-bb9a-4a30-a308-bcd40b65d64c', N'def2ba71-8e42-47dc-b9e6-16f79a556477', N'D16', N'00000000-0000-0000-0000-000000000000', N'B16DCCN112')
+INSERT [dbo].[Student] ([StudentID], [PersonID], [GradeID], [ImageID], [StudentCode]) VALUES (N'd4ac733a-db9e-4fe1-ac36-c8a8ab00f861', N'f6e942f0-04bf-49dd-8527-a423b1ea39bf', N'D16', N'00000000-0000-0000-0000-000000000000', N'B16DCCN092')
+INSERT [dbo].[Student] ([StudentID], [PersonID], [GradeID], [ImageID], [StudentCode]) VALUES (N'922f897c-3192-403c-b869-e637ddd98a3b', N'e586de35-0740-4b18-b2e5-c4b51e4b5ff9', N'D16', N'00000000-0000-0000-0000-000000000000', N'B16DCCN232')
+INSERT [dbo].[Student] ([StudentID], [PersonID], [GradeID], [ImageID], [StudentCode]) VALUES (N'5677cb6f-e67e-4a9f-bb87-f7dc4e4d57c1', N'7417ebc3-7763-40cd-91c2-64bc949fc22e', N'D16', N'00000000-0000-0000-0000-000000000000', N'B16DCCN270')
+GO
+INSERT [dbo].[Subject] ([GradeID], [SubjectID], [SubjectName], [Credits], [SubjectCode]) VALUES (N'D16', N'6da60ba0-4212-4b6a-b792-854b4dc866a1', N'Ki?n trúc máy tính', 2, N'KTMT')
+INSERT [dbo].[Subject] ([GradeID], [SubjectID], [SubjectName], [Credits], [SubjectCode]) VALUES (N'D16', N'bf2b0266-c0b6-4b9b-85e1-cf803f330e5e', N'Phân tích thi?t k? h? th?ng thông tin', 3, N'PTTKHTTT')
+GO
+INSERT [dbo].[Teacher] ([TeacherID], [PersonID], [Specialize]) VALUES (N'fd26187c-8869-40c0-ac0b-22f7418e4637', N'7af68a1a-f60c-4cfd-b32a-d0470038b922', N'BBB')
+INSERT [dbo].[Teacher] ([TeacherID], [PersonID], [Specialize]) VALUES (N'7d756fcd-d010-48e6-89cc-ed0a00674662', N'94d94fb8-a762-464b-b1a8-6e2143d24994', N'AAA')
+GO
+ALTER TABLE [dbo].[Attendance]  WITH CHECK ADD  CONSTRAINT [FK_Attendance_ClassSection] FOREIGN KEY([SectionID])
+REFERENCES [dbo].[ClassSection] ([SectionID])
+GO
+ALTER TABLE [dbo].[Attendance] CHECK CONSTRAINT [FK_Attendance_ClassSection]
+GO
+ALTER TABLE [dbo].[ClassSection]  WITH CHECK ADD  CONSTRAINT [FK_ClassSection_ClassRoom] FOREIGN KEY([RoomID])
+REFERENCES [dbo].[ClassRoom] ([RoomID])
+GO
+ALTER TABLE [dbo].[ClassSection] CHECK CONSTRAINT [FK_ClassSection_ClassRoom]
+GO
+ALTER TABLE [dbo].[ClassSection]  WITH CHECK ADD  CONSTRAINT [FK_ClassSection_Subject] FOREIGN KEY([SubjectID])
+REFERENCES [dbo].[Subject] ([SubjectID])
+GO
+ALTER TABLE [dbo].[ClassSection] CHECK CONSTRAINT [FK_ClassSection_Subject]
+GO
+ALTER TABLE [dbo].[ClassSection]  WITH CHECK ADD  CONSTRAINT [FK_ClassSection_Teacher] FOREIGN KEY([TeacherID])
+REFERENCES [dbo].[Teacher] ([TeacherID])
+GO
+ALTER TABLE [dbo].[ClassSection] CHECK CONSTRAINT [FK_ClassSection_Teacher]
+GO
+ALTER TABLE [dbo].[ClassSectionStudent]  WITH CHECK ADD  CONSTRAINT [FK_ClassSectionStudent_ClassSection] FOREIGN KEY([SectionID])
+REFERENCES [dbo].[ClassSection] ([SectionID])
+GO
+ALTER TABLE [dbo].[ClassSectionStudent] CHECK CONSTRAINT [FK_ClassSectionStudent_ClassSection]
+GO
+ALTER TABLE [dbo].[ClassSectionStudent]  WITH CHECK ADD  CONSTRAINT [FK_ClassSectionStudent_Student] FOREIGN KEY([StudentID])
+REFERENCES [dbo].[Student] ([StudentID])
+GO
+ALTER TABLE [dbo].[ClassSectionStudent] CHECK CONSTRAINT [FK_ClassSectionStudent_Student]
+GO
+ALTER TABLE [dbo].[Member]  WITH CHECK ADD  CONSTRAINT [FK_Member_People] FOREIGN KEY([PersonID])
+REFERENCES [dbo].[People] ([PersonID])
+GO
+ALTER TABLE [dbo].[Member] CHECK CONSTRAINT [FK_Member_People]
+GO
+ALTER TABLE [dbo].[Member]  WITH CHECK ADD  CONSTRAINT [FK_Member_Role] FOREIGN KEY([RoleID])
+REFERENCES [dbo].[Role] ([RoleID])
+GO
+ALTER TABLE [dbo].[Member] CHECK CONSTRAINT [FK_Member_Role]
+GO
+ALTER TABLE [dbo].[Remark]  WITH CHECK ADD  CONSTRAINT [FK_Remark_Student] FOREIGN KEY([StudentID])
+REFERENCES [dbo].[Student] ([StudentID])
+GO
+ALTER TABLE [dbo].[Remark] CHECK CONSTRAINT [FK_Remark_Student]
+GO
+ALTER TABLE [dbo].[Student]  WITH CHECK ADD  CONSTRAINT [FK_Student_Grade] FOREIGN KEY([GradeID])
+REFERENCES [dbo].[Grade] ([GradeID])
+GO
+ALTER TABLE [dbo].[Student] CHECK CONSTRAINT [FK_Student_Grade]
+GO
+ALTER TABLE [dbo].[Subject]  WITH CHECK ADD  CONSTRAINT [FK_Subject_Grade] FOREIGN KEY([GradeID])
+REFERENCES [dbo].[Grade] ([GradeID])
+GO
+ALTER TABLE [dbo].[Subject] CHECK CONSTRAINT [FK_Subject_Grade]
+GO
+ALTER TABLE [dbo].[Teacher]  WITH CHECK ADD  CONSTRAINT [FK_Teacher_People] FOREIGN KEY([PersonID])
+REFERENCES [dbo].[People] ([PersonID])
+GO
+ALTER TABLE [dbo].[Teacher] CHECK CONSTRAINT [FK_Teacher_People]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_Role_GetData]    Script Date: 6/23/2020 10:51:08 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[Proc_Role_GetData] 
+	-- Add the parameters for the stored procedure here
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	Select * FROM dbo.Role
+END
+GO
+/****** Object:  StoredProcedure [dbo].[Student_Insert]    Script Date: 6/23/2020 10:51:08 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		nhphuong
+-- Create date: 10/06/2020
+-- Description:	Thêm student
+-- =============================================
+CREATE PROCEDURE [dbo].[Student_Insert] 
+	-- Add the parameters for the stored procedure here
+	@PersonName NVARCHAR(50),
+	@StudentCode NVARCHAR(20),
+	@DoB DATETIME,
+	@Address NVARCHAR(MAX),
+	@Email NVARCHAR(255),
+	@ContactMobile NVARCHAR(20),
+	@GradeID NVARCHAR(50),
+	@Gender INT
+AS
+BEGIN
+	DECLARE @StudentID UNIQUEIDENTIFIER = NEWID();
+	DECLARE @PersonID UNIQUEIDENTIFIER = NEWID();
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    INSERT INTO dbo.Student(
+		StudentID,
+		PersonID,
+		GradeID,
+		StudentCode
+	)
+
+	VALUES (
+		@StudentID,
+		@StudentCode,
+		@GradeID,
+		@StudentCode
+		)
+
+	INSERT INTO dbo.People(
+		PersonID,
+		PersonName,
+		DoB,
+		Gender,
+		Email,
+		ContactMobile,
+		Address
+	)
+
+	VALUES(
+		@PersonID,
+		@PersonName,
+		@DoB,
+		@Gender,
+		@Email,
+		@ContactMobile,
+		@Address
+	)
+END
+GO
+USE [master]
+GO
+ALTER DATABASE [PTIT_PTHTTTQL_FaceAttendance] SET  READ_WRITE 
+GO
