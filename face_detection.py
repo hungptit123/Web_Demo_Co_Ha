@@ -80,12 +80,12 @@ class FaceDetection(object):
 #     # Capture frame-by-frame
 #     ret, frame = cap.read()
 #     faces = face_detect.detect_faces(frame)
-#     for x,y,w,h in faces:
-#     	img_crop = frame[y:y+h, x:x+w, :]
+#     if len(faces) > 0:
+#     	cv2.imwrite(str(i) + ".png", frame)
 #     	i += 1
-#     	cv2.imwrite(str(i) + ".png", img_crop)
 #     	if i == 5:
 #     		break
+
 #     # Display the resulting frame
 #     cv2.imshow('frame',frame)
 #     if cv2.waitKey(1) & 0xFF == ord('q'):

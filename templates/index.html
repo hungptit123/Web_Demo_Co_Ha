@@ -4,7 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="CSS/TkSv.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <style type="text/css">
+        body{
+            overflow:hidden;
+
+        }
+        .container{
+            margin-top: 100px;
+            over
+        }
+        
         /*#container{
             margin: 0px auto;
             width: 500px;
@@ -12,39 +26,58 @@
             border: 10px #333 solid;
         }*/
 
-        #videoElement{
-            width: 480px;
-            height: 320px;
+        /*#videoElement{
+            width: 500px;
+            height: 375px;
             /*background-color: #666;*/
-        }
+        }*/
     </style>
 </head>
 <body>
-    <div id="container" style="width: 50%; height: 320px; float: left" >
-        <video autoplay="true" id="videoElement"></video>
+    <div class="container">
+        <div class="row">
+            <div  class="col-md-6" style="height: 375px;  ">
+            <canvas id="canvas_2" width="500" height="375" style="border: 2px solid black"></canvas>
+            </div>
+           
+            <div  class="col-md-6 " style=" height: 375px; ">
+                <canvas id="canvas_3" width="500" height="375" style="border: 2px solid black"></canvas>
+            </div>
+
+          
+        </div>
+        <div class="row">
+            <div style="width: 20%; height: 150px; margin: 30px auto ">
+                <form action="" method="POST">
+                <input type="submit" class="btn btn-danger btn-block" value="Kết thúc">
+                <input type="text" name="session_id" class="" value="{{session_id}}" style="visibility: hidden;">
+            </div>
+            
+        </div>
+      
     </div>
-    <div style="width: 25%; height: 160px; float: left; ">
+
+   
+    <div id="container" style="width: 50%; height: 375px; float: left" style="visibility: hidden;" >
+        <video autoplay="true" id="videoElement" style="visibility: hidden;"></video>
+    </div>
+    <!-- <div style="width: 25%; height: 160px; float: left; ">
         <canvas id="canvas_2"></canvas>
-    </div>
-    <div style="width: 25%; height: 160px; float: left; ">
-        <canvas id="canvas_2"></canvas>
-    </div>
-    <div style="width: 30%; height: 150px; float: left;">
-        <form action="" method="POST">
-        <input type="submit" class="btn btn-danger btn-block" value="Kết thúc">
-    </div>
-    <div style="width: 100%; height: 160px; float: left; display: block; visibility:hidden;">
-        <canvas id="canvas" style="display: block; visibility:hidden;"></canvas>
+    </div> -->
+    <div style="width: 100%; height: 320px; float: left; display: block; visibility:hidden;">
+        <canvas id="canvas" width="320" height="320" style="display: block; visibility:hidden;"></canvas>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
+        var session_id = '{{session_id}}';
         var socket = io.connect( 'http://' + document.domain + ':' + location.port )
         socket.on( 'connect', function() {
         });
         const canvas = document.getElementById('canvas');
         const canvas_2 = document.getElementById('canvas_2');
+        const canvas_3 = document.getElementById('canvas_3');
         var video = document.querySelector("#videoElement");
         navigator.getUserMedia = navigator.getUserMedia
         || navigator.webkitGetUserMedia
@@ -64,16 +97,32 @@
         }
         var context = canvas.getContext('2d');
         var context_2 = canvas_2.getContext('2d');
+        var context_3 = canvas_3.getContext('2d');
         window.setInterval(function() {
-            context.drawImage(video, 0, 0, 160, 160);
+            context.drawImage(video, 0, 0, 320, 320);
             const data = canvas.toDataURL('image/png');
-            socket.emit('process_video', data);
+            output = {'image': data, 'session_id' : session_id}
+            socket.emit('process_video', output);
         }, 100);
         socket.on('response_back', function(message){
             var bbox = message.bbox;
-            var labels = message.labels
+            var labels = message.labels;
+            var check = 0;
+            if (bbox.length > 0) {
+                for (i in labels) {
+                    if (labels[i] != "unknown") {
+                        check = 1;
+                        break;
+                    }
+                }
+            }
+
             context_2.clearRect(0, 0, canvas_2.width, canvas_2.height);
-            context_2.drawImage(video, 0, 0, 160, 160);
+            if (check == 1) {
+                context_3.clearRect(0, 0, canvas_3.width, canvas_3.height);
+                context_3.drawImage(video, 0, 0, 500, 375);
+            }
+            context_2.drawImage(video, 0, 0, 500, 375);
             if (bbox.length > 0) {
                 for (i in bbox) {
                     data_bb = bbox[i]
@@ -87,6 +136,18 @@
                     context_2.rect(data_bb[0], data_bb[1], data_bb[2], data_bb[3]);
                     context_2.strokeText(labels[i], data_bb[0], data_bb[1]);
                     context_2.stroke();
+                    if (check == 1) {
+                        context_3.beginPath();
+                        context_3.lineWidth = "2";
+                        if (labels[i] == "unknown") {
+                            context_3.strokeStyle = "red";
+                        } else {
+                            context_3.strokeStyle = "blue";
+                        }
+                        context_3.rect(data_bb[0], data_bb[1], data_bb[2], data_bb[3]);
+                        context_3.strokeText(labels[i], data_bb[0], data_bb[1]);
+                        context_3.stroke();
+                    }
                 }
             }
         });

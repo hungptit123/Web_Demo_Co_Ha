@@ -29,12 +29,12 @@
 
 		<div class="form-group">
 			<label for="name">Họ và tên:</label>
-			<input type="text" name="name" class="form-control" placeholder="Họ và tên">
+			<input type="text" name="personName" class="form-control" placeholder="Họ và tên">
 		</div>
 
 		<div class="form-group">
 			<label for="date">Ngày sinh:</label>
-			<input type="date" name="date" class="form-control" placeholder="Ngày/tháng/năm sinh">
+			<input type="date" name="doB" class="form-control" placeholder="Ngày/tháng/năm sinh">
 		</div>
 
 		<div class="form-group">
@@ -49,12 +49,17 @@
 
 		<div class="form-group">
 			<label for="phone">Số điện thoại:</label>
-			<input type="text" name="phone" class="form-control" placeholder="Số điện thoại">
+			<input type="text" name="contactMobile" class="form-control" placeholder="Số điện thoại">
+		</div>
+
+		<div class="form-group">
+			<label for="chuyenmon">Chuyên Môn:</label>
+			<input type="text" name="specialize" class="form-control" placeholder="Chuyên Môn">
 		</div>
 
 		<div class="form-group">
 			<label for="id">Username:</label>
-			<input type="text" name="username" class="form-control" placeholder="Usename">
+			<input type="text" name="userName" class="form-control" placeholder="Usename">
 		</div>
 
 		<div class="form-group">
@@ -62,12 +67,14 @@
 			<input type="text" name="password" class="form-control" placeholder="password">
 		</div>
 
-       <div class="form-group">
-       	 	<!-- <form action="/upload-image" method="POST" enctype="multipart/form-data"> -->
+      	<!-- <div class="form-group">
+       	 	<form action="/upload-image" method="POST" enctype="multipart/form-data">
 			<input type="file" name="image" class=" form-control-file my-4" value="Chọn tệp">
-			<!-- </form> -->
-		</div>
+			</form>
+		</div> -->
 		<input type="submit" class="btn btn-danger btn-block" value="Thêm">
+		<input type="submit" class="btn btn-danger btn-block" value="Xoa">
+		<input type="submit" class ="btn btn-danger btn-block" value="Sua">
 		<input type="text" name="session_id" class="" value="{{session_id}}" style="visibility: hidden;">
 </form>
 </div></div></div>
